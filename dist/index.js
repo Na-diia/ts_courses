@@ -7,3 +7,4 @@ if (button && input) {
     });
 }
 ;
+//# sourceMappingURL=index.js.map
