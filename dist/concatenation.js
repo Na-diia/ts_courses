@@ -75,15 +75,6 @@ function getButtonStyle(size) {
 }
 ;
 let myButtonStyle = getButtonStyle('large');
-const getUserName = (users) => {
-    return users.map((user) => user.name);
-};
-const users = [
-    { id: 1, name: 'Alice' },
-    { id: 2, name: 'Paraska' },
-];
-const results = getUserName(users);
-console.log(results);
 function logMessage(message) {
     console.log(message);
 }
@@ -113,6 +104,152 @@ function calc(param1, param2, callback) {
     console.log('Result: ', callback(param1, param2));
 }
 ;
-calc(1, 10, (num1, num2) => num1 + num2);
+calc(32, 5, (num1, num2) => num1 + num2);
+const user = {
+    name: 'Harry',
+    id: 17,
+};
+const userWithCoords = {
+    id: 18,
+    name: 'Harry',
+    coords: [10, 56],
+};
+var AnimalIds;
+(function (AnimalIds) {
+    AnimalIds["cat"] = "cat";
+    AnimalIds["dog"] = "dog";
+    AnimalIds["fish"] = "fish";
+})(AnimalIds || (AnimalIds = {}));
+;
+let cat = {
+    meom: () => 'very loud mouw',
+};
+let dog = {
+    bark: () => 'very loud bark',
+};
+let fish = {
+    swim: () => undefined,
+};
+function greet(name) {
+    if (name) {
+        return `Hello, ${name}!`;
+    }
+    else {
+        return 'Hello!';
+    }
+    ;
+}
+;
+let user2 = { name: 'Alice', };
+;
+;
+let animal = {
+    name: 'hery',
+    age: 5,
+};
+;
+let bird = {
+    name: 'gety',
+    age: 4,
+};
+;
+;
+;
+class MyDogBalto {
+    constructor() {
+        this.name = 'Balto';
+        this.bark = 'Woof!';
+    }
+}
+;
+;
+;
+class Anim {
+    walk() {
+        console.log('The animal walks...');
+    }
+    ;
+    eat() {
+        console.log('The animal eats...');
+    }
+}
+;
+const anim = new Anim();
+;
+let add;
+add = (n1, n2) => {
+    return n1 + n2;
+};
+function printDetails(obj) {
+    console.log(`Name: ${obj.name}`);
+    if ('privileges' in obj) {
+        console.log(`Privileges: ${obj.privileges.join(", ")}`);
+    }
+    ;
+    if ('startDate' in obj) {
+        console.log(`StartDate: ${obj.startDate}`);
+    }
+    ;
+}
+;
+const newEmployee = {
+    name: 'Haryy',
+    startDate: new Date,
+};
+class Car {
+    drive() {
+        console.log('Driving a car...');
+    }
+    ;
+}
+;
+class Truck {
+    drive() {
+        console.log('Driving a truck...');
+    }
+    ;
+    loadCargo(amount) {
+        console.log(`Loading cargo: ${amount}`);
+    }
+    ;
+}
+;
+const carInstance = new Car();
+const truckInstance = new Truck();
+function useVehicle(vehicle) {
+    vehicle.drive();
+    if (vehicle instanceof Truck) {
+        vehicle.loadCargo(1000);
+    }
+    ;
+}
+;
+useVehicle(carInstance);
+useVehicle(truckInstance);
+function isDogs(animal) {
+    return 'bark' in animal;
+}
+;
+function letAnimalTalk(animal) {
+    if (isDogs(animal)) {
+        animal.bark();
+    }
+    else {
+        animal.meow();
+    }
+    ;
+}
+;
+function isEmployee(staff) {
+    return staff.startDate !== undefined;
+}
+;
+const staffMember = {
+    name: 'Ron',
+    startDate: new Date(),
+};
+if (isEmployee(staffMember)) {
+    console.log(`Welcome on board, ${staffMember.name}! Your start date is ${staffMember.startDate}`);
+}
 export { concatenation };
 //# sourceMappingURL=concatenation.js.map
