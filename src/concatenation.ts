@@ -399,6 +399,109 @@ const staffMember : Staff = {
 
 if(isEmployee(staffMember)) {
   console.log(`Welcome on board, ${staffMember.name}! Your start date is ${staffMember.startDate}`);
-}
+};
+
+let someValue: unknown = 'some string';
+
+let strLength1: number = (<string>someValue).length;
+
+let strLength2: number = (someValue as string).length;
+
+
+const input = document.getElementById('inputEmail');
+if(input) {
+  (input as HTMLInputElement).value = 'hui';
+};
+
+type Person1 = {
+  name: string;
+  [x: string] : string;
+};
+
+const newUser: Person1 = {
+  name: 'Harry',
+  gender: 'MAN',
+  country: 'Ukraine',
+};
+
+type NewMan = {
+  id: string;
+  name: string;
+  email: string;
+};
+
+type Mans = {
+  [id: string] : NewMan;
+};
+
+let mans : Mans = {};
+let man : NewMan = {
+  id: '567',
+  name: 'Ron',
+  email: 'ron@gmail.com',
+};
+
+mans[man.id] = man;
+
+function combine3 (input1: number, input2: number): number;
+function combine3(input1: string, input2: string): string;
+function combine3(input1: string, input2: number): string;
+function combine3(input1: number, input2: string): string;
+function combine3 (input1: any, input2: any) {
+  if(typeof input1 === 'number' && typeof input2 === 'number') {
+    return input1 + input2;
+  }
+  else if(typeof input1 === 'string' && typeof input2 === 'string') {
+    return input1 + input2;
+  }else if( typeof input1 === 'string' && typeof input2 === 'number') {
+    return input1 + input2;
+  }else if(typeof input1 === 'number' && typeof input2 === 'string') {
+    return input1 + input2;
+  }
+};
+
+function concatenate (strs: string[]) : string;
+function concatenate (strs: string[], separator: string): string;
+function concatenate (strs: any, separator? : any): any {
+  if( separator !== undefined) {
+    return strs.join(separator);
+  }else {
+    return strs.join(' ');
+  };
+};
+
+let names = ['Emily', 'Nevil', 'Santa'];
+
+type AdminType = {
+  type: 'admin';
+  name: string;
+  privileges: string[];
+};
+
+type UserType = {
+  type: 'user';
+  name: string;
+  registrationDate: Date;
+};
+
+function checkUser (name: string, type: 'user') : UserType;
+function checkUser (name: string, type: 'admin', privileges: string[]): AdminType;
+function checkUser(name: string, type: 'admin' | 'user', privilegesOrRegistrationDate?: string[]): UserType | AdminType {
+  if (type === 'admin') {
+    return {
+      type,
+      name, 
+      privileges: privilegesOrRegistrationDate as string[],
+    }
+  }
+  return {
+    type, 
+    name,
+    registrationDate: new Date(),
+  }
+};
+
+console.log(checkUser('Nicita', 'user'));
+console.log(checkUser('Boss', 'admin', ['money', 'holiday']));
 
 export {concatenation};

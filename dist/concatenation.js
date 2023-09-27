@@ -251,5 +251,69 @@ const staffMember = {
 if (isEmployee(staffMember)) {
     console.log(`Welcome on board, ${staffMember.name}! Your start date is ${staffMember.startDate}`);
 }
+;
+let someValue = 'some string';
+let strLength1 = someValue.length;
+let strLength2 = someValue.length;
+const input = document.getElementById('inputEmail');
+if (input) {
+    input.value = 'hui';
+}
+;
+const newUser = {
+    name: 'Harry',
+    gender: 'MAN',
+    country: 'Ukraine',
+};
+let mans = {};
+let man = {
+    id: '567',
+    name: 'Ron',
+    email: 'ron@gmail.com',
+};
+mans[man.id] = man;
+function combine3(input1, input2) {
+    if (typeof input1 === 'number' && typeof input2 === 'number') {
+        return input1 + input2;
+    }
+    else if (typeof input1 === 'string' && typeof input2 === 'string') {
+        return input1 + input2;
+    }
+    else if (typeof input1 === 'string' && typeof input2 === 'number') {
+        return input1 + input2;
+    }
+    else if (typeof input1 === 'number' && typeof input2 === 'string') {
+        return input1 + input2;
+    }
+}
+;
+function concatenate(strs, separator) {
+    if (separator !== undefined) {
+        return strs.join(separator);
+    }
+    else {
+        return strs.join(' ');
+    }
+    ;
+}
+;
+let names = ['Emily', 'Nevil', 'Santa'];
+function checkUser(name, type, privilegesOrRegistrationDate) {
+    if (type === 'admin') {
+        return {
+            type,
+            name,
+            privileges: privilegesOrRegistrationDate,
+        };
+    }
+    return {
+        type,
+        name,
+        registrationDate: new Date(),
+    };
+}
+;
+console.log(checkUser('Nicita', 'user'));
+console.log(checkUser('Boss', 'admin', ['money', 'holiday']));
 export { concatenation };
 //# sourceMappingURL=concatenation.js.map
