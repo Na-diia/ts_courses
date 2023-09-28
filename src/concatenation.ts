@@ -501,7 +501,64 @@ function checkUser(name: string, type: 'admin' | 'user', privilegesOrRegistratio
   }
 };
 
-console.log(checkUser('Nicita', 'user'));
-console.log(checkUser('Boss', 'admin', ['money', 'holiday']));
+//Generics
+let arr: Array<number | string> = [];
+
+arr = [1, 'ght'];
+
+const promise : Promise<string> = new Promise((resolve) => {
+ setInterval(() => {
+   resolve('Done!');
+ }, 1000);
+});
+
+promise.then((data) => {
+  console.log(data)
+});
+
+function identity <T> (arg: T): T {
+  return arg;
+};
+
+let output1 = identity<string>('My string');
+let output2 = identity<number>(100);
+
+function firstElement <T> (arr : T[]) : T {
+  return arr[0];
+};
+
+let numbers: number[] = [1, 2, 3, 4, 5];
+let firstNum = firstElement(numbers);
+
+let strings: string[] = ['a', 'b', 'c', 'd'];
+let firstStrg = firstElement(strings);
+
+type Persona = {
+ name: string;
+};
+
+type AdditionalFields = {
+  age: number;
+};
+
+function merge <T extends object, U extends object> (obj1: T, obj2: U) {
+  return Object.assign(obj1, obj2);
+};
+
+const merged = merge<Persona, AdditionalFields>({name: 'Alica'}, {age: 29});
+
+type Length = {
+  length: number;
+};
+
+function getLength <T extends Length>(str: T) {
+  return str.length;
+};
+getLength('test');
+getLength([1, 2, 3]);
+
+function arrayLogger<T extends Array<string>>(array: T) : void {
+  array.forEach((item) => console.log(item));
+};
 
 export {concatenation};

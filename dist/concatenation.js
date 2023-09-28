@@ -313,7 +313,45 @@ function checkUser(name, type, privilegesOrRegistrationDate) {
     };
 }
 ;
-console.log(checkUser('Nicita', 'user'));
-console.log(checkUser('Boss', 'admin', ['money', 'holiday']));
+//Generics
+let arr = [];
+arr = [1, 'ght'];
+const promise = new Promise((resolve) => {
+    setInterval(() => {
+        resolve('Done!');
+    }, 1000);
+});
+promise.then((data) => {
+    console.log(data);
+});
+function identity(arg) {
+    return arg;
+}
+;
+let output1 = identity('My string');
+let output2 = identity(100);
+function firstElement(arr) {
+    return arr[0];
+}
+;
+let numbers = [1, 2, 3, 4, 5];
+let firstNum = firstElement(numbers);
+let strings = ['a', 'b', 'c', 'd'];
+let firstStrg = firstElement(strings);
+function merge(obj1, obj2) {
+    return Object.assign(obj1, obj2);
+}
+;
+const merged = merge({ name: 'Alica' }, { age: 29 });
+function getLength(str) {
+    return str.length;
+}
+;
+getLength('test');
+getLength([1, 2, 3]);
+function arrayLogger(array) {
+    array.forEach((item) => console.log(item));
+}
+;
 export { concatenation };
 //# sourceMappingURL=concatenation.js.map
