@@ -353,5 +353,95 @@ function arrayLogger(array) {
     array.forEach((item) => console.log(item));
 }
 ;
+function getPersonInfo(person, key) {
+    return person[key];
+}
+;
+const john = {
+    name: 'John',
+    age: 25,
+    location: 'Nadvirna',
+};
+getPersonInfo(john, 'age');
+function extractValue(obj, key) {
+    return obj[key];
+}
+;
+extractValue({ name: 'John' }, 'name');
+class DataStorage {
+    constructor() {
+        this.data = [];
+    }
+    addItem(item) {
+        this.data.push(item);
+    }
+    ;
+    getItems() {
+        return [...this.data];
+    }
+    ;
+}
+;
+const textStorage = new DataStorage();
+textStorage.addItem('Hello');
+textStorage.addItem('Henry');
+textStorage.addItem('Lacrimosa');
+console.log(textStorage.getItems());
+const numberStorage = new DataStorage();
+numberStorage.addItem(12);
+numberStorage.addItem(19);
+console.log(numberStorage.getItems());
+class KeyValuePair {
+    constructor(key, value) {
+        this.key = key;
+        this.value = value;
+    }
+    ;
+    getKey() {
+        return this.key;
+    }
+    ;
+    getValue() {
+        return this.value;
+    }
+    ;
+}
+;
+const pair1 = new KeyValuePair('name', 'John');
+pair1.getKey();
+pair1.getValue();
+const pair2 = new KeyValuePair(12, 44);
+pair2.getKey();
+pair2.getValue();
+function createUser(data) {
+    const defaultUser = {
+        id: Date.now(),
+        name: '',
+        email: '',
+        registered: false,
+    };
+    return {
+        ...defaultUser, ...data
+    };
+}
+;
+const newUseriana = createUser({ name: 'Nadiia', email: 'nadiyakubchak@ukr.net' });
+console.log(newUseriana);
+let alice = {
+    name: 'Alice',
+    id: 1236,
+    email: 'alice@gmail.com'
+};
+alice.name = 'bob';
+let aliceReadonly = {
+    name: 'Alice',
+    id: 789,
+    email: 'alice@gmail.com',
+};
+const arr45 = ['honey', 'milk', 'bread'];
+let userBasicInfo = {
+    id: 456,
+    name: 'Oxana',
+};
 export { concatenation };
 //# sourceMappingURL=concatenation.js.map

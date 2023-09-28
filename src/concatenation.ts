@@ -561,4 +561,133 @@ function arrayLogger<T extends Array<string>>(array: T) : void {
   array.forEach((item) => console.log(item));
 };
 
+type PersonNonGrata = {
+  name: string;
+  age: number;
+  location: string;
+};
+
+type PersonKeys = keyof PersonNonGrata;
+
+function getPersonInfo (person: PersonNonGrata, key: PersonKeys) {
+  return person[key];
+};
+
+const john : PersonNonGrata = {
+  name: 'John',
+  age: 25,
+  location: 'Nadvirna',
+};
+
+getPersonInfo(john, 'age');
+
+function extractValue <T extends object, U extends keyof T> (obj: T, key: U) {
+  return obj[key];
+};
+
+extractValue({name: 'John'}, 'name');
+
+class DataStorage<T> {
+  private data: T[] = [];
+
+  addItem(item: T) {
+    this.data.push(item);
+  };
+
+  getItems () {
+    return [...this.data];
+  };
+};
+
+const textStorage = new DataStorage<string>();
+textStorage.addItem('Hello');
+textStorage.addItem('Henry');
+textStorage.addItem('Lacrimosa');
+console.log(textStorage.getItems());
+
+const numberStorage = new DataStorage<number>();
+numberStorage.addItem(12);
+numberStorage.addItem(19);
+console.log(numberStorage.getItems());
+
+
+class KeyValuePair <TKey, TValue> {
+  constructor(private key: TKey, private value: TValue){};
+
+  getKey(): TKey {
+    return this.key;
+  };
+
+  getValue(): TValue {
+    return this.value;
+  };
+};
+
+const pair1 = new KeyValuePair('name', 'John');
+pair1.getKey();
+pair1.getValue();
+
+const pair2 = new KeyValuePair(12, 44);
+pair2.getKey();
+pair2.getValue();
+
+type Useriana = {
+  id: number;
+  name: string;
+  email: string;
+  registered: boolean;
+};
+
+function createUser (data: Partial<Useriana>): Useriana {
+  const defaultUser: Useriana = {
+    id: Date.now(),
+    name: '',
+    email: '',
+    registered: false,
+  };
+
+  return {
+   ...defaultUser, ...data
+  };
+};
+
+const newUseriana = createUser({name: 'Nadiia', email: 'nadiyakubchak@ukr.net'});
+console.log(newUseriana);
+
+type Girl = {
+  name: string;
+  id: number;
+  email: string;
+};
+
+let alice : Girl = {
+  name: 'Alice',
+  id: 1236,
+  email: 'alice@gmail.com'
+};
+
+alice.name = 'bob';
+
+let aliceReadonly: Readonly<Girl> = {
+  name: 'Alice',
+  id: 789,
+ email: 'alice@gmail.com',
+};
+
+const arr45: Readonly<string[]> = ['honey', 'milk', 'bread'];
+
+type They = {
+  id: number;
+  name: string;
+  email: string;
+};
+
+type UserBasicInfo = Pick<They, 'id' | 'name'>;
+
+let userBasicInfo : UserBasicInfo = {
+  id: 456,
+  name: 'Oxana',
+};
+
+
 export {concatenation};
