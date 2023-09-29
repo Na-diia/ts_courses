@@ -443,5 +443,44 @@ let userBasicInfo = {
     id: 456,
     name: 'Oxana',
 };
+const translations = {
+    Mon: 'Понеділок',
+    Tue: 'Вівторок',
+    Wed: 'Середа',
+    Thur: 'Четвер',
+    Fri: "П'ятниця",
+    Sat: 'Субота',
+    Sun: 'Неділя',
+};
+var UserRoles;
+(function (UserRoles) {
+    UserRoles["admin"] = "admin";
+    UserRoles["manager"] = "manager";
+    UserRoles["employee"] = "employee";
+})(UserRoles || (UserRoles = {}));
+;
+const userRoleStatusses = {
+    [UserRoles.admin]: true,
+    [UserRoles.manager]: false,
+    [UserRoles.employee]: true
+};
+function greeting() {
+    return 'Hello, World!';
+}
+;
+function multiply(a, b) {
+    return a * b;
+}
+;
+function createdLoggedFunction(func) {
+    let funcRef = func;
+    const loggedFunction = (...args) => {
+        console.log(`Function ${func.name} was called with arguments: `, args);
+        const result = funcRef(...args);
+        return result;
+    };
+    return loggedFunction;
+}
+;
 export { concatenation };
 //# sourceMappingURL=concatenation.js.map

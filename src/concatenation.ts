@@ -689,5 +689,111 @@ let userBasicInfo : UserBasicInfo = {
   name: 'Oxana',
 };
 
+type BaseEmployee = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  position: string;
+  department: string;
+  startDate: Date;
+};
+
+type BaseProject = {
+  id: number;
+  name: string;
+  budget: number;
+  deadLine: Date;
+};
+
+type Assigment = {
+  employee: Pick<BaseEmployee, 'id' | 'firstName'| 'lastName'>;
+  projects: Pick<BaseProject, 'id' | 'name' | 'deadLine'>[];
+  shouldNotifyEmployee? : boolean;
+};
+
+type Weekdays = 'Mon' | 'Tue' | 'Wed' | 'Thur' | 'Fri';
+type Weekend = 'Sat' | 'Sun';
+
+type Day = Weekdays | Weekend;
+
+type DayTranslations = Record<Day, string>;
+
+const translations : DayTranslations = {
+  Mon: 'Понеділок',
+  Tue: 'Вівторок',
+  Wed: 'Середа',
+  Thur: 'Четвер',
+  Fri: "П'ятниця",
+  Sat: 'Субота',
+  Sun: 'Неділя',
+};
+
+enum UserRoles {
+  admin = 'admin',
+  manager = 'manager',
+  employee = 'employee'
+};
+
+type UserRoleStatusses = Record<UserRoles, boolean>;
+
+const userRoleStatusses : UserRoleStatusses = {
+  [UserRoles.admin] : true,
+  [UserRoles.manager]: false,
+  [UserRoles.employee]: true
+};
+
+type InitialFormType = {
+  name: string;
+  email: string;
+  password: string;
+};
+
+export type Form = InitialFormType & {
+  errors: Partial<Record<keyof InitialFormType, [string]>>
+};
+
+type Person09 = {
+  name: string;
+  age: number;
+  location: string;
+};
+
+type PersonWithoutLocation = Omit<Person, 'location'>;
+
+function greeting () {
+  return 'Hello, World!';
+};
+
+type Greeting = ReturnType<typeof greeting>;
+
+function multiply(a: number, b: number): number {
+  return a * b;
+};
+
+type MultiplyResult = ReturnType<typeof multiply>;
+
+type Callback = (...args: unknown[]) => unknown;
+
+function createdLoggedFunction<T extends Callback> (func: T) {
+  let funcRef = func;
+
+  const loggedFunction = (...args: Parameters<T>) => {
+    console.log(`Function ${func.name} was called with arguments: `, args);
+    const result = funcRef(...args) as ReturnType<T>;
+
+    return result;
+  };
+
+  return loggedFunction;
+};
+
+type MyFunctionType = (a: string, b: number, c: boolean) => void;
+
+type MyParametersType = Parameters<MyFunctionType>;
+
+type SomeType = string | null | undefined;
+
+type NonNullableType = NonNullable<SomeType>;
+
 
 export {concatenation};
