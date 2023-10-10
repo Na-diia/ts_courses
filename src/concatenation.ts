@@ -1,3 +1,56 @@
+type Employee = {
+  name: string;
+  id: number;
+};
+
+type Manager = {
+  employees: Employee[];
+};
+
+type CEO = Employee & Manager;
+
+type Dog = {
+  legs: 4;
+  bark: () => void;
+};
+
+type Fish = {
+  fins: 2;
+  swim: () => void;
+};
+
+type OneOrTwo = 1 | 2;
+type YesOrNo = 'yes' | 'no';
+type ButtonSize = 'small' | 'medium' | 'large';
+
+type CallbackType = (...nums : number[]) => number;
+
+type User = {
+  name: string;
+  id: number;
+};
+
+type Coordinate = [number, number];
+
+type UserWithCoords = {
+  id: number;
+  name: string;
+  coords: Coordinate;
+};
+
+type Animal = {
+  [AnimalIds.cat]: {
+    meom: () => string;
+  };
+
+  [AnimalIds.dog]: {
+    bark: () => string;
+  };
+
+  [AnimalIds.fish]: {
+    swim: () => undefined;
+  };
+};
 
 function concatenation (firstWord: string, secondWord: string) {
   console.log(`${firstWord} ${secondWord}`);
@@ -29,32 +82,11 @@ function combine (param1: number | string, param2: number | string) {
   };
 };
 
-type Dog = {
-  legs: 4;
-  bark: () => void;
-};
-
-type Fish = {
-  fins: 2;
-  swim: () => void;
-};
-
 let pet : Dog | Fish;
 
 function isDog (pet: Dog | Fish): pet is Dog {
   return 'bark' in pet;
 };
-
-type Employee = {
-  name: string;
-  id: number;
-};
-
-type Manager = {
-  employees: Employee[];
-};
-
-type CEO = Employee & Manager;
 
 const ceo : CEO = {
   name: 'Alice',
@@ -65,18 +97,13 @@ const ceo : CEO = {
   }],
 };
 
-//Literal Type
-type OneOrTwo = 1 | 2;
 let value : OneOrTwo;
 value = 1;
 value = 2;
 
-type YesOrNo = 'yes' | 'no';
 let choise : YesOrNo;
 choise = 'yes';
 choise = 'no';
-
-type ButtonSize = 'small' | 'medium' | 'large';
 
 function getButtonStyle (size: ButtonSize) {
   switch(size) {
@@ -135,30 +162,15 @@ myFunc =(first: string, second: number) => {
 
 myFunc('Radio-Ga-Ga', 90);
 
-type CallbackType = (...nums : number[]) => number;
-
 function calc (param1: number, param2: number, callback: CallbackType) : void {
   console.log('Result: ', callback(param1, param2));
 };
 
 calc(32, 5, (num1, num2) => num1 + num2);
 
-type User = {
-  name: string;
-  id: number;
-};
-
 const user: User = {
   name: 'Harry',
   id: 17,
-};
-
-type Coordinate = [number, number];
-
-type UserWithCoords = {
-  id: number;
-  name: string;
-  coords: Coordinate;
 };
 
 const userWithCoords: UserWithCoords = {
@@ -171,20 +183,6 @@ enum AnimalIds {
   cat = 'cat',
   dog = 'dog',
   fish = 'fish'
-};
-
-type Animal = {
-  [AnimalIds.cat]: {
-    meom: () => string;
-  };
-
-  [AnimalIds.dog]: {
-    bark: () => string;
-  };
-
-  [AnimalIds.fish]: {
-    swim: () => undefined;
-  };
 };
 
 let cat: Animal[AnimalIds.cat] = {
