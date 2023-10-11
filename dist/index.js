@@ -324,4 +324,169 @@ class B extends AA {
 const a = new AA();
 const ba = new B();
 ba.showProperty();
+class Building {
+    constructor(n) {
+        this.tenants = [];
+        this.street = n;
+    }
+    ;
+    showAddress() {
+        console.log("Address: ", this.street);
+    }
+    ;
+    addTenants(tenant) {
+        this.tenants.push(tenant);
+    }
+    ;
+    showTenants() {
+        console.log(this.tenants);
+    }
+    ;
+}
+;
+const building = new Building("Middle-earth");
+building.addTenants("Frodo");
+building.addTenants("Sem");
+//building.showTenants();
+class Evrica {
+    constructor(type, street) {
+        this.type = type;
+        this.street = street;
+    }
+    ;
+}
+;
+class Flat {
+    constructor(tenants) {
+        this.tenants = tenants;
+    }
+    ;
+    addTenant(tenant) {
+        this.tenants.push(tenant);
+    }
+    ;
+}
+;
+const flat = new Flat([]);
+flat.addTenant("Iren");
+console.log(flat.tenants);
+class Flat2 {
+    constructor(address) {
+        this.address = address;
+    }
+    ;
+}
+;
+const flat2 = new Flat2({ street: "Franko", number: 2 });
+flat2.address.number = 9;
+class House5 {
+    constructor(type, street) {
+        this.type = type;
+        this.street = street;
+        this.tenants = [];
+    }
+    ;
+    showAddress() {
+        console.log("Address: " + this.street);
+    }
+    ;
+    showType() {
+        console.log("House-Type: " + this.type);
+    }
+    ;
+    addTenant(tenant) {
+        this.tenants.push(tenant);
+    }
+    ;
+    showTenants() {
+        console.log(this.tenants);
+    }
+    ;
+}
+;
+class StoneHouse extends House5 {
+    constructor(street, generalTenant) {
+        super("stone", street);
+        this.chargeOfTheHouse = generalTenant;
+        this.addTenant(generalTenant);
+    }
+    ;
+    showTenants() {
+        console.log("Tenants: " + this.chargeOfTheHouse);
+        super.showTenants();
+    }
+    ;
+}
+;
+class Person {
+    constructor() {
+        this.personInfo = {};
+    }
+    set firstName(value) {
+        console.log("FirstName added");
+        this.personInfo.firstName = value;
+    }
+    ;
+    set lastName(value) {
+        console.log("LastName added");
+        this.personInfo.lastName = value;
+    }
+    ;
+    get info() {
+        const { personInfo } = this;
+        return `${personInfo.firstName} ${personInfo.lastName}`;
+    }
+    ;
+}
+;
+const person = new Person();
+person.firstName = "Nadiia";
+person.lastName = "Pekaruk";
+class UseStatic {
+    constructor() {
+        UseStatic.count += 1;
+    }
+    ;
+    static isStaticMethod() {
+        console.log("Run static method");
+    }
+    ;
+    showCount() {
+        console.log(UseStatic.count);
+    }
+    ;
+}
+UseStatic.count = 1;
+;
+const obj1 = new UseStatic();
+const obj2 = new UseStatic();
+const obj3 = new UseStatic();
+obj1.showCount();
+obj2.showCount();
+obj3.showCount();
+UseStatic.isStaticMethod();
+class Plane {
+    constructor() {
+        this.pilotInCabine = false;
+    }
+    sitInPlane() {
+        this.pilotInCabine = true;
+    }
+    ;
+}
+;
+class Maize extends Plane {
+    startEngine() {
+        return true;
+    }
+    ;
+}
+;
+class Boeing extends Plane {
+    startEngine() {
+        return true;
+    }
+    ;
+}
+;
 //# sourceMappingURL=index.js.map

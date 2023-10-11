@@ -351,3 +351,181 @@ const ba = new B();
 
 ba.showProperty();
 
+class Building {
+    private street: string;
+
+    private tenants: string[] = [];
+
+    constructor (n: string) {
+        this.street = n;
+    };
+
+    showAddress(this: Building) {
+        console.log("Address: ", this.street);
+    };
+
+    addTenants (tenant: string) {
+        this.tenants.push(tenant);
+    };
+
+    showTenants () {
+        console.log(this.tenants);
+    };
+};
+
+const building = new Building("Middle-earth");
+building.addTenants("Frodo");
+building.addTenants("Sem");
+//building.showTenants();
+
+class Evrica {
+    constructor (private readonly type: string, private street: string) {};
+
+    // changeType (type: string) {
+    //     this.type = type;// Cannot assign to 'type' because it is a read-only property.
+    // };
+};
+
+class Flat {
+    constructor (public readonly tenants: string[]) {};
+
+    addTenant (tenant: string) {
+        this.tenants.push(tenant);
+    };
+};
+
+const flat = new Flat([]);
+flat.addTenant("Iren");
+console.log(flat.tenants);
+
+class Flat2 {
+    constructor (public readonly address: {street: string, number: number}) {};
+};
+
+const flat2 = new Flat2({street: "Franko", number: 2});
+flat2.address.number = 9;
+
+class House5 {
+    private tenants: string[] = [];
+
+    constructor (private readonly type: string, private street: string) {};
+
+    showAddress (this: House5) {
+        console.log("Address: " + this.street);
+    };
+
+    showType (this: House5) : void {
+        console.log("House-Type: " + this.type);
+    };
+
+    addTenant( tenant: string) {
+        this.tenants.push(tenant);
+    };
+
+    showTenants () {
+        console.log(this.tenants);
+    };
+};
+
+class StoneHouse extends House5 {
+  private chargeOfTheHouse : string;
+
+  constructor (street: string, generalTenant: string) {
+    super("stone", street);
+
+    this.chargeOfTheHouse = generalTenant;
+    this.addTenant(generalTenant);
+  };
+
+  showTenants () {
+    console.log("Tenants: " + this.chargeOfTheHouse);
+
+    super.showTenants();
+  };
+};
+
+// const stoneHouse = new StoneHouse("Stone-world", "Max");
+// stoneHouse.addTenant("Oleh");
+// stoneHouse.addTenant("PYLYP");
+
+// stoneHouse.showAddress();
+// stoneHouse.showTenants();
+// stoneHouse.showType();
+
+type PersonInformation = {
+ firstName?: string;
+ lastName?: string;
+};
+
+class Person {
+    private personInfo : PersonInformation = {};
+
+    set firstName (value: string) {
+        console.log("FirstName added");
+
+        this.personInfo.firstName = value;
+    };
+
+    set lastName (value: string) {
+        console.log("LastName added");
+
+        this.personInfo.lastName = value;
+    };
+
+    get info () {
+        const {personInfo} = this;
+
+        return `${personInfo.firstName} ${personInfo.lastName}`;
+    };
+};
+
+const person = new Person();
+person.firstName = "Nadiia";
+person.lastName = "Pekaruk";
+
+class UseStatic {
+    private static count = 1;
+
+    constructor () {
+        UseStatic.count += 1;
+    };
+
+    public static isStaticMethod () {
+        console.log("Run static method");
+    };
+
+    public showCount () {
+        console.log(UseStatic.count);
+    };
+};
+
+const obj1 = new UseStatic();
+const obj2 = new UseStatic();
+const obj3 = new UseStatic();
+
+obj1.showCount();
+obj2.showCount();
+obj3.showCount();
+UseStatic.isStaticMethod();
+
+abstract class Plane {
+  protected pilotInCabine = false;
+
+  public sitInPlane () {
+    this.pilotInCabine = true;
+  };
+  
+  public abstract startEngine(): boolean;
+};
+
+class Maize extends Plane {
+    public startEngine () {
+        return true;
+    };
+};
+
+class Boeing extends Plane {
+    public startEngine () {
+       return true;
+    };
+};
