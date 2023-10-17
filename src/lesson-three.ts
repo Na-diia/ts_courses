@@ -130,4 +130,97 @@ someone = {
     name: "who"
 };
 
+// type AddFunc = (n1: number, n2: number) => number;
 
+// let add : AddFunc;
+
+// add = (n1: number, n2: number): number => {
+//   return n1 + n2;
+// };
+
+interface AddFunc {
+  (n1: number, n2: number): number;
+};
+
+let add : AddFunc;
+add = (n1: number, n2: number): number =>  {
+  return n1+ n2;
+};
+
+interface IPerson2 {
+  name?: string;
+  age: number;
+};
+
+class Person2 implements IPerson2 {
+  constructor (public age: number) {};
+};
+
+class Animal {
+  constructor (public name: string) {};
+
+  public say(): void {
+    console.log("Nothing to say");
+  };
+};
+
+class Cat extends Animal {
+  constructor (name: string, private speed: number) {
+    super(name);
+  };
+
+  say() {
+    console.log("Meow");
+  };
+
+  run (time: number): void {
+    console.log(`${this.name} бігла зі швидкістю ${this.speed} протягом ${time}`)
+  };
+};
+
+interface InterfacePerson {
+  name: string;
+  age: number;
+  greet: (phrase: string) =>  void;
+};
+
+class Someone implements InterfacePerson {
+  constructor (public name: string, public age: number) {};
+
+  greet(phrase: string): void {
+    console.log(phrase + 'My name is ' + this.name);
+  };
+};
+
+
+type ItemType = {
+  name: string;
+};
+
+class Catalog{
+  showCatalog (items: ItemType[]){
+   items.forEach((item) => {
+    console.log(item.name);
+   });
+  };
+};
+
+class Items {
+  private items: ItemType[] = [];
+
+  setItem (name: string) {
+    this.items.push({name});
+  };
+
+  getItems(): ItemType[] {
+    return this.items;
+  };
+};
+
+const items = new Items();
+const catalog = new Catalog();
+items.setItem("Books");
+items.setItem("Pictures");
+items.setItem("Movies");
+
+catalog.showCatalog(items.getItems());

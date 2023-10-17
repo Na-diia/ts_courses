@@ -102,4 +102,86 @@ let someone;
 someone = {
     name: "who"
 };
+;
+let add;
+add = (n1, n2) => {
+    return n1 + n2;
+};
+;
+class Person2 {
+    constructor(age) {
+        this.age = age;
+    }
+    ;
+}
+;
+class Animal {
+    constructor(name) {
+        this.name = name;
+    }
+    ;
+    say() {
+        console.log("Nothing to say");
+    }
+    ;
+}
+;
+class Cat extends Animal {
+    constructor(name, speed) {
+        super(name);
+        this.speed = speed;
+    }
+    ;
+    say() {
+        console.log("Meow");
+    }
+    ;
+    run(time) {
+        console.log(`${this.name} бігла зі швидкістю ${this.speed} протягом ${time}`);
+    }
+    ;
+}
+;
+;
+class Someone {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    ;
+    greet(phrase) {
+        console.log(phrase + 'My name is ' + this.name);
+    }
+    ;
+}
+;
+class Catalog {
+    showCatalog(items) {
+        items.forEach((item) => {
+            console.log(item.name);
+        });
+    }
+    ;
+}
+;
+class Items {
+    constructor() {
+        this.items = [];
+    }
+    setItem(name) {
+        this.items.push({ name });
+    }
+    ;
+    getItems() {
+        return this.items;
+    }
+    ;
+}
+;
+const items = new Items();
+const catalog = new Catalog();
+items.setItem("Books");
+items.setItem("Pictures");
+items.setItem("Movies");
+catalog.showCatalog(items.getItems());
 //# sourceMappingURL=lesson-three.js.map
