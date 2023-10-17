@@ -180,8 +180,99 @@ class Items {
 ;
 const items = new Items();
 const catalog = new Catalog();
-items.setItem("Books");
-items.setItem("Pictures");
-items.setItem("Movies");
-catalog.showCatalog(items.getItems());
+// items.setItem("Books");
+// items.setItem("Pictures");
+// items.setItem("Movies");
+// catalog.showCatalog(items.getItems());
+class DB {
+    connection() {
+        console.log("DB conected");
+    }
+    ;
+}
+;
+class Server {
+    constructor(database) {
+        this.database = database;
+    }
+    ;
+    init() {
+        this.database.connection();
+    }
+    ;
+}
+;
+const db = new DB();
+const server = new Server(db);
+server.init();
+class Person3 {
+    constructor(name) {
+        this.name = name;
+    }
+    ;
+}
+;
+class Home {
+    constructor() {
+        this.guests = [];
+    }
+    addGuests(guest) {
+        this.guests.push(guest);
+    }
+    ;
+}
+;
+const home = new Home();
+const guest1 = new Person3("Max");
+const guest2 = new Person3("Bogdan");
+const guest3 = new Person3("Oleg");
+home.addGuests(guest1);
+home.addGuests(guest2);
+home.addGuests(guest3);
+class CompositionHome {
+    constructor() {
+        this.tenants = [];
+    }
+    addTenants(name) {
+        const tenant = new Person3(name);
+        this.tenants.push(tenant);
+    }
+    ;
+}
+;
+const compositionHome = new CompositionHome();
+compositionHome.addTenants("Vasyl");
+compositionHome.addTenants("Michle");
+compositionHome.addTenants("Nadiia");
+class Captain {
+    constructor(name) {
+        this.name = name;
+    }
+    ;
+}
+;
+// class Ship {
+//   private captain : Captain;
+//   setCaptain (name: string) {
+//     const captain1 = new Captain(name);
+//     this.captain = captain1;
+//   };
+//   sink () {
+//     console.log(`Ship is sinking! Captain ${this.captain.name} goes down with the ship!`)
+//   };
+// };
+// const ship = new Ship();
+// ship.setCaptain("Harry");
+// ship.sink();
+//Singletone
+class App {
+    constructor() {
+        if (!App.instance) {
+            App.instance = this;
+        }
+        return App.instance;
+    }
+    ;
+}
+;
 //# sourceMappingURL=lesson-three.js.map
