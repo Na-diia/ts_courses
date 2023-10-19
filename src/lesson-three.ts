@@ -312,3 +312,156 @@ class App {
   };
 };
 
+interface PaymentProcessor {
+  validate(data: any): boolean;
+  pay(amount: number): void;
+};
+
+class CreditCardProcessor implements PaymentProcessor {
+
+  validate(data: any): boolean {
+    return true;
+  };
+
+  pay(amount: number): void {
+    console.log(`User paid ${amount} usong credit card!`);
+  };
+};
+
+class PayPalProcessor implements PaymentProcessor {
+
+  validate( data: any) : boolean {
+    return true;
+  };
+
+  pay( amount: number): void {
+    console.log(`User paid ${amount} using PayPal`);
+  };
+};
+
+class BitcoinProcessor implements PaymentProcessor {
+
+  validate ( data: any): boolean {
+    return true;
+  };
+
+  pay( amount: number): void {
+    console.log(`User paid ${amount} using Bitcoin`);
+  };
+};
+
+class PaymentProcessorFactory {
+  static createProcessor (type: string): PaymentProcessor {
+    switch(type ) {
+      case 'Credit Card' : 
+      return new CreditCardProcessor();
+      case 'PayPal' : 
+      return new PayPalProcessor();
+      case 'Bitcoin' : 
+      return new BitcoinProcessor();
+      default :
+        throw new Error(`This ${type} does not supported`);    
+    };
+  };
+};
+
+const processor = PaymentProcessorFactory.createProcessor('Credit Card');
+processor.pay(100);
+
+class Car {
+  constructor (
+    public model: string,
+    public year: number,
+    public color: string
+  ) {};
+};
+
+class CarBuilder {
+ constructor( private model: string,
+  private year: number,
+  private color: string) {};
+
+
+  // setModel (model: string): CarBuilder {
+  //   this.model = model;
+
+  //   return this;
+  // };
+
+  // setYear (year: number): CarBuilder {
+  //   this.year = year;
+
+  //   return this;
+  // };
+
+  // setColor (color: string): CarBuilder {
+  //   this.color = color;
+
+  //   return this;
+  // };
+
+   build (): Car {
+    return new Car (this.model, this.year, this.color);
+   };
+};
+
+const builder = new CarBuilder ("Tesla Model S", 2023, 'Red');
+
+class QueryBuilder {
+  private table: string = ' ';
+  private whereParams: string[] = [];
+  private orderBy: string = '';
+
+  from (table: string) : QueryBuilder {
+    this.table = table;
+
+    return this;
+  };
+
+  where (whereParams : string[]): QueryBuilder {
+    this.whereParams = whereParams;
+
+    return this;
+  };
+
+  order (orderBy: string): QueryBuilder {
+    this.orderBy = orderBy;
+
+    return this;
+  };
+
+  build() : DataBaseQuery {
+    return new DataBaseQuery(this.table, this.whereParams, this.orderBy);
+  };
+};
+
+class DataBaseQuery {
+   constructor (
+    private table: string,
+    private whereParams: string[],
+    private orderBy: string
+  ) {};
+
+  query(): void {
+   let query = `SELECT * FROM ${this.table}`;
+
+   if(this.whereParams.length) {
+     query += `WHERE ${this.whereParams.join(' AND ')}`;
+   };
+
+   if(this.orderBy) {
+     query += `ORDER BY ${this.orderBy}`;
+   };
+
+   console.log(`Executing query ${query}`);
+  };
+};
+
+const newBuilder = new QueryBuilder();
+const dbQuery = newBuilder
+  .from("Nadvirna")
+  .where(['age > 21'])
+  .order('lastName')
+  .build();
+
+dbQuery.query();
