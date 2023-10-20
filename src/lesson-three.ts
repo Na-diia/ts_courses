@@ -551,6 +551,219 @@ class SugarDecorator extends CoffeeDecorator {
 let coffee: Coffee = new SimpleCoffee();
 coffee = new MilcDecorator(coffee);
 coffee = new SugarDecorator(coffee);
+//console.log(`${coffee.description()} - ${coffee.cost()} dollars`);
 
-console.log(`${coffee.description()} - ${coffee.cost()} dollars`);
+type User = {
+  id: number;
+  name: string;
+  email: string;
+  address?: Address;
+  payment?: PaymentData;
+};
 
+type Address = {
+  userId: number;
+  country: string;
+  city: string;
+  street: string;
+};
+
+type PaymentData = {
+  userId : number;
+  creditCardNumber: string;
+  expiryDate: string;
+};
+
+class UserService {
+  getUser(id: number): User {
+    console.log(`Fetching user data for id: ${id}`);
+    return {id, name: 'Harry Potter', email: 'harrypotter@gmail.com'};
+  };
+
+  updateUser(user: User) : void {
+    console.log(`Update user: ${user}`);
+  };
+};
+
+class AddressService {
+  getAddress(userId: number): Address {
+    console.log(`Fetching address data for userId: ${userId}`);
+
+    return {userId, country: 'Ukraine', city: 'Kyiv', street: 'Shevchenko, 21'};
+  };
+
+  updateAddress (address: Address): void {
+    console.log(`Updating address : ${address}`);
+  };
+};
+
+class PaymentService {
+  getPaymentData(userId: number): PaymentData {
+    console.log(`Fetching paymentData for id : ${userId}`);
+
+    return {userId, creditCardNumber: '123-123-123-123', expiryDate: '01/25'};
+  };
+
+  updatePaymentData (userId: number, paymentData: PaymentData): void {
+    console.log(`Updating payment data for id: ${userId}`);
+  };
+};
+
+class UserProfileFacade {
+  constructor (
+    private userService: UserService,
+    private addressServise: AddressService,
+    private paymentService: PaymentService
+  ) {};
+
+  getUserProfile (userId: number): User {
+    const user = this.userService.getUser(userId);
+    user.address = this.addressServise.getAddress(userId);
+    user.payment = this.paymentService.getPaymentData(userId);
+    return user;
+  };
+
+  updateUserProfile (userId: number, userData: User): void {
+      this.userService.updateUser(userData);
+  };
+};
+
+interface State {
+  proceedToNext (order: Order): void;
+  toString(): string;
+};
+
+class Order {
+  private state: State;
+
+  constructor () {
+    this.state = new PendingState();
+  };
+
+  public proceedToNext () {
+    this.state.proceedToNext(this);
+  };
+
+  public setState (state: State) {
+    this.state = state;
+  };
+
+  public toString(): string {
+    return this.state.toString();
+  };
+};
+
+class PendingState implements State {
+  public proceedToNext (order: Order): void {
+    console.log("Proceeding from Pending to Shipped...");
+    order.setState(new ShippedState());
+  };
+
+  public toString(): string {
+    return 'Pending...';
+  };
+};
+
+class ShippedState implements State {
+  public proceedToNext(order: Order): void {
+    console.log("Proceeding from Shipped to Delivered");
+
+    order.setState(new DeliveredState());
+  };
+
+  public toString(): string {
+    return "Shipped";
+  };
+};
+
+class DeliveredState implements State {
+  public proceedToNext (order: Order): void {
+    console.log("Already delievered. Thank you!");
+  };
+
+  public toString(): string {
+    return "Delivered";
+  };
+};
+
+let order = new Order ();
+// console.log(order.toString());
+
+// order.proceedToNext();
+// console.log(order.toString());
+
+// order.proceedToNext();
+// console.log(order.toString());
+
+// order.proceedToNext();
+
+//Агрегація
+class Team {
+  members: Programmer[]; 
+  constructor(members: Programmer[]) { 
+    this.members = members; 
+  };
+   
+  startProject() { 
+    this.members.forEach(member => member.code()); 
+  };
+};
+
+class Programmer { 
+  code() { 
+    console.log('Coding...'); 
+  }; 
+};
+
+const programmers = [new Programmer(), new Programmer()]; 
+const team = new Team(programmers); team.startProject();
+
+
+//Composition
+class Computer { 
+  processor: Processor; 
+  
+  constructor() { 
+    this.processor = new Processor(); 
+  };
+  
+  start() { 
+    this.processor.processData(); 
+  };
+};
+
+class Processor { 
+  processData() { 
+    console.log('Processing data...'); 
+  }; 
+};
+
+const computer = new Computer(); 
+computer.start();
+
+//
+class Car2 { 
+  driver: Driver | null = null; 
+  
+  setDriver(driver: Driver) { 
+    this.driver = driver; 
+  };
+  
+  startJourney() { 
+    if (this.driver) { 
+      this.driver.drive(); 
+    } 
+  }; 
+}; 
+
+class Driver { 
+  drive() { 
+    console.log('Driving...'); 
+  }; 
+};
+
+const driver = new Driver(); 
+
+const car = new Car2(); 
+car.setDriver(driver); 
+car.startJourney();

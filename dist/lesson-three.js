@@ -505,5 +505,193 @@ class SugarDecorator extends CoffeeDecorator {
 let coffee = new SimpleCoffee();
 coffee = new MilcDecorator(coffee);
 coffee = new SugarDecorator(coffee);
-console.log(`${coffee.description()} - ${coffee.cost()} dollars`);
+class UserService {
+    getUser(id) {
+        console.log(`Fetching user data for id: ${id}`);
+        return { id, name: 'Harry Potter', email: 'harrypotter@gmail.com' };
+    }
+    ;
+    updateUser(user) {
+        console.log(`Update user: ${user}`);
+    }
+    ;
+}
+;
+class AddressService {
+    getAddress(userId) {
+        console.log(`Fetching address data for userId: ${userId}`);
+        return { userId, country: 'Ukraine', city: 'Kyiv', street: 'Shevchenko, 21' };
+    }
+    ;
+    updateAddress(address) {
+        console.log(`Updating address : ${address}`);
+    }
+    ;
+}
+;
+class PaymentService {
+    getPaymentData(userId) {
+        console.log(`Fetching paymentData for id : ${userId}`);
+        return { userId, creditCardNumber: '123-123-123-123', expiryDate: '01/25' };
+    }
+    ;
+    updatePaymentData(userId, paymentData) {
+        console.log(`Updating payment data for id: ${userId}`);
+    }
+    ;
+}
+;
+class UserProfileFacade {
+    constructor(userService, addressServise, paymentService) {
+        this.userService = userService;
+        this.addressServise = addressServise;
+        this.paymentService = paymentService;
+    }
+    ;
+    getUserProfile(userId) {
+        const user = this.userService.getUser(userId);
+        user.address = this.addressServise.getAddress(userId);
+        user.payment = this.paymentService.getPaymentData(userId);
+        return user;
+    }
+    ;
+    updateUserProfile(userId, userData) {
+        this.userService.updateUser(userData);
+    }
+    ;
+}
+;
+;
+class Order {
+    constructor() {
+        this.state = new PendingState();
+    }
+    ;
+    proceedToNext() {
+        this.state.proceedToNext(this);
+    }
+    ;
+    setState(state) {
+        this.state = state;
+    }
+    ;
+    toString() {
+        return this.state.toString();
+    }
+    ;
+}
+;
+class PendingState {
+    proceedToNext(order) {
+        console.log("Proceeding from Pending to Shipped...");
+        order.setState(new ShippedState());
+    }
+    ;
+    toString() {
+        return 'Pending...';
+    }
+    ;
+}
+;
+class ShippedState {
+    proceedToNext(order) {
+        console.log("Proceeding from Shipped to Delivered");
+        order.setState(new DeliveredState());
+    }
+    ;
+    toString() {
+        return "Shipped";
+    }
+    ;
+}
+;
+class DeliveredState {
+    proceedToNext(order) {
+        console.log("Already delievered. Thank you!");
+    }
+    ;
+    toString() {
+        return "Delivered";
+    }
+    ;
+}
+;
+let order = new Order();
+// console.log(order.toString());
+// order.proceedToNext();
+// console.log(order.toString());
+// order.proceedToNext();
+// console.log(order.toString());
+// order.proceedToNext();
+//Агрегація
+class Team {
+    constructor(members) {
+        this.members = members;
+    }
+    ;
+    startProject() {
+        this.members.forEach(member => member.code());
+    }
+    ;
+}
+;
+class Programmer {
+    code() {
+        console.log('Coding...');
+    }
+    ;
+}
+;
+const programmers = [new Programmer(), new Programmer()];
+const team = new Team(programmers);
+team.startProject();
+//Composition
+class Computer {
+    constructor() {
+        this.processor = new Processor();
+    }
+    ;
+    start() {
+        this.processor.processData();
+    }
+    ;
+}
+;
+class Processor {
+    processData() {
+        console.log('Processing data...');
+    }
+    ;
+}
+;
+const computer = new Computer();
+computer.start();
+//
+class Car2 {
+    constructor() {
+        this.driver = null;
+    }
+    setDriver(driver) {
+        this.driver = driver;
+    }
+    ;
+    startJourney() {
+        if (this.driver) {
+            this.driver.drive();
+        }
+    }
+    ;
+}
+;
+class Driver {
+    drive() {
+        console.log('Driving...');
+    }
+    ;
+}
+;
+const driver = new Driver();
+const car = new Car2();
+car.setDriver(driver);
+car.startJourney();
 //# sourceMappingURL=lesson-three.js.map
