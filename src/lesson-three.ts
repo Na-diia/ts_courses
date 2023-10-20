@@ -465,3 +465,92 @@ const dbQuery = newBuilder
   .build();
 
 dbQuery.query();
+
+class OldService {
+  public oldServiceRequest (): string {
+    return "Old Service Request!";
+  };
+};
+
+interface NewInterfaceService {
+  request(): string;
+};
+
+class Adapter implements NewInterfaceService {
+
+  constructor(private OldService: OldService) {};
+
+  public request (): string {
+    const result = this.OldService.oldServiceRequest();
+
+    return `Adapter: (TRANSLATED) ${result}`;
+  };
+};
+
+class Client {
+  constructor (private newInterface: NewInterfaceService) {};
+
+  public useService (): void {
+    console.log(this.newInterface.request());
+  };
+};
+
+const oldService = new OldService();
+const adapter = new Adapter(oldService);
+const client = new Client(adapter);
+
+//client.useService();
+
+interface Coffee {
+  cost (): number;
+  description (): string;
+};
+
+class SimpleCoffee implements Coffee {
+  cost () {
+    return 10;
+  };
+
+  description () {
+    return "Simple coffee";
+  };
+};
+
+class CoffeeDecorator implements Coffee {
+  constructor (protected coffee : Coffee) {};
+
+  cost() {
+    return this.coffee.cost() + 2;
+  };
+
+  description () {
+    return this.coffee.description() + ' milk ';
+  };
+};
+
+class MilcDecorator extends CoffeeDecorator {
+  cost () {
+    return this.coffee.cost();
+  };
+
+  description () {
+    return this.coffee.description();
+  };
+};
+
+class SugarDecorator extends CoffeeDecorator {
+  cost () {
+    return this.coffee.cost() + 1;
+  };
+
+  description () {
+    return this.coffee.description() + ' sugar ';
+  };
+};
+
+let coffee: Coffee = new SimpleCoffee();
+coffee = new MilcDecorator(coffee);
+coffee = new SugarDecorator(coffee);
+
+console.log(`${coffee.description()} - ${coffee.cost()} dollars`);
+

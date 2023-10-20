@@ -419,4 +419,91 @@ const dbQuery = newBuilder
     .order('lastName')
     .build();
 dbQuery.query();
+class OldService {
+    oldServiceRequest() {
+        return "Old Service Request!";
+    }
+    ;
+}
+;
+;
+class Adapter {
+    constructor(OldService) {
+        this.OldService = OldService;
+    }
+    ;
+    request() {
+        const result = this.OldService.oldServiceRequest();
+        return `Adapter: (TRANSLATED) ${result}`;
+    }
+    ;
+}
+;
+class Client {
+    constructor(newInterface) {
+        this.newInterface = newInterface;
+    }
+    ;
+    useService() {
+        console.log(this.newInterface.request());
+    }
+    ;
+}
+;
+const oldService = new OldService();
+const adapter = new Adapter(oldService);
+const client = new Client(adapter);
+;
+class SimpleCoffee {
+    cost() {
+        return 10;
+    }
+    ;
+    description() {
+        return "Simple coffee";
+    }
+    ;
+}
+;
+class CoffeeDecorator {
+    constructor(coffee) {
+        this.coffee = coffee;
+    }
+    ;
+    cost() {
+        return this.coffee.cost() + 2;
+    }
+    ;
+    description() {
+        return this.coffee.description() + ' milk ';
+    }
+    ;
+}
+;
+class MilcDecorator extends CoffeeDecorator {
+    cost() {
+        return this.coffee.cost();
+    }
+    ;
+    description() {
+        return this.coffee.description();
+    }
+    ;
+}
+;
+class SugarDecorator extends CoffeeDecorator {
+    cost() {
+        return this.coffee.cost() + 1;
+    }
+    ;
+    description() {
+        return this.coffee.description() + ' sugar ';
+    }
+    ;
+}
+;
+let coffee = new SimpleCoffee();
+coffee = new MilcDecorator(coffee);
+coffee = new SugarDecorator(coffee);
+console.log(`${coffee.description()} - ${coffee.cost()} dollars`);
 //# sourceMappingURL=lesson-three.js.map
